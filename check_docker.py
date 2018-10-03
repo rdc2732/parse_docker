@@ -11,15 +11,15 @@ if len(sys.argv) != 2:
 else:
     container = sys.argv[1]
 
-proc=Popen('docker ps', shell=True, stdout=PIPE,)
-output=proc.communicate()[0]
-lines = output.split('\n')
+# proc=Popen('docker ps', shell=True, stdout=PIPE,)
+# output=proc.communicate()[0]
+# lines = output.split('\n')
 
-# 1) Get output of 'docker ps' command, which is returned as a string.  For testing use docker.txt
+# 1) Get output of 'docker ps' command, which is returned as a string.  For testing use docker_status.txt
 
 # 2) Break output into lines
-# text_file = open('docker.txt', 'r')
-# lines = text_file.readlines()
+text_file = open('docker_status.txt', 'r')
+lines = text_file.readlines()
 
 # 3) For first line get starting location of each field.  field_list is a list of dictionary as
 #    [ column_name: start]
@@ -32,13 +32,13 @@ for key in fields.keys():
 for line in lines[1:]:
     status = line[fields['STATUS']:fields['PORTS']-1]
     name = line[fields['NAMES']:].strip()
-
+    response = name + ": " + status
     if (name.find(container) != -1):
         if (status.find('Up') != -1):
-            print(f'{name}: {status}')
+            print(response)
             exit(0)
         else:
-            exit(f'{name}: {status}')
+            exit(response)
 
-exit(f'{container} not found')
+exit(container + ' not found')
 
