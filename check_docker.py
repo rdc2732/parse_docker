@@ -19,7 +19,8 @@ try:
 except IOError:
     exit (status_file_name + " does not exist.")
 
-status_time = os.path.getmtime("docker_status.txt")
+
+status_time = os.path.getmtime(status_file_name)
 status_time_str = str(datetime.fromtimestamp(status_time))
 status_time_message = "Docker Process Status: " + status_time_str
 
@@ -28,6 +29,7 @@ if container == "STATUS":
     exit(0)
 
 lines = status_file.readlines()
+
 
 # For first line get starting location of each field.  field_list is a list of dictionary as
 #    [ column_name: start]
@@ -59,7 +61,3 @@ exit(container + ' not found')
 # context-myadmin
 # context-mysql
 
-# To Do:
-#   - Create and document de08u2008 cron jobs to create docker ps, docker check time and system ps files
-#   - Update python program to read all of these files and return based on query type
-#   - Package up the stuff that goes on head CSDM server.  cron scripts, plugins
