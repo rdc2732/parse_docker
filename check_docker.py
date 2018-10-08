@@ -6,6 +6,7 @@
 import sys
 import os
 from datetime import datetime
+import time
 
 status_file_name = "/home/nagiosrm/docker_status.txt"
 
@@ -21,8 +22,10 @@ except IOError:
 
 
 status_time = os.path.getmtime(status_file_name)
-status_time_str = str(datetime.fromtimestamp(status_time).strftime('%Y-%-m%d %H:%M:%S'))
-status_time_message = "Docker Process Status: " + status_time_str
+status_timezone_str = str(time.tzname[0])
+status_time_str = str(datetime.fromtimestamp(status_time).strftime('%Y-%-m%d %H:%M:%S '))
+status_time_message = "Docker Process Status: " + status_time_str + stataus_timezone_str
+
 
 if container == "STATUS":
     print status_time_message
