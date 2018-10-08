@@ -21,7 +21,7 @@ except IOError:
 
 
 status_time = os.path.getmtime(status_file_name)
-status_time_str = str(datetime.fromtimestamp(status_time))
+status_time_str = str(datetime.fromtimestamp(status_time).strftime('%Y-%-m%d %H:%M:%S'))
 status_time_message = "Docker Process Status: " + status_time_str
 
 if container == "STATUS":
